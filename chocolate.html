@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<title>Happy Valentine</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="gift.png">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://kit.fontawesome.com/d3b6d8a543.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Bitter:700&display=swap');
+    *,
+    *:before,
+    *:after {
+        position: relative;
+        box-sizing: border-box;
+    }
+    
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #F47321;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+    
+    .instructions {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 0.5rem;
+        text-align: center;
+        font-family: Bitter, sans-serif;
+    }
+    /* ---------------------------------- */
+    
+     :root {
+        --brown: #754C28;
+        --brown-light: #{mix(white, #754C28, 15%)};
+        --brown-dark: #432B16;
+        --brown-darker: #553310;
+    }
+    
+    .chocolate-button {
+        /* Reset button styles */
+        appearance: none;
+        border: none;
+        background: none;
+        padding: 0;
+        margin: 0;
+        font-size: 10vmin;
+        @media ( min-width: 600px) {
+            font-size: 60px;
+        }
+        font-family: Bitter,
+        cursive;
+        cursor: pointer;
+        transform: rotateX(10deg) rotateZ(10deg);
+    }
+    
+    .bar {
+        border-radius: 0.3em;
+        display: block;
+        transition: transform 0.1s ease;
+    }
+    
+    .bar:hover,
+    .bar:focus,
+    .bar:active {
+        transform: translateY(0.05em);
+    }
+    
+    .bar:before,
+    .bar:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        border-radius: inherit;
+    }
+    
+    .bar:before {
+        background-color: var(--brown);
+        border: .35em rgba(#754C28, .6) ridge;
+        top: 0;
+        z-index: 0;
+        // box-shadow: 
+        //   inset 0 .05em var(--brown-light),
+        //   inset 0 -.05em var(--brown-darker);
+    }
+    
+    .bar:after {
+        top: .3em;
+        left: .3em;
+        background: var(--brown-dark);
+        box-shadow: inset 0 -.05em var(--brown-darker);
+    }
+    
+    .text,
+    .bar:before,
+    .bar:after {
+        transition: clip-path .15s steps(3, start);
+        clip-path: polygon( 100% 0, 100% 100%, calc(30% + var(--x, 0) * 1px) 100%, calc(24% + var(--x, 0) * 1px) 100%, calc(7% + var(--x, 0) * 1px) 100%, calc(0% + var(--x, 0) * 1px) 100%, calc(-6% + var(--x, 0) * 1px) 100%, calc(-20% + var(--x, 0) * 1px) 100%, calc(-30% + var(--x, 0) * 1px) 100%, 0 100%, 0 0);
+    }
+    
+    .text {
+        display: block;
+        padding: 1em .5em;
+        color: var(--brown-dark);
+        opacity: 0.8;
+        text-shadow: 1px 2px var(--brown-light), -1px -2px black;
+    }
+    /* ---------------------------------- */
+    
+    .crumbs {
+        position: absolute;
+        width: .3em;
+        height: .3em;
+        border-radius: 50%;
+        top: 0;
+        left: calc(var(--x, 0) * 1px);
+        pointer-events: none;
+        opacity: 0;
+    }
+    
+    .crumbs:before,
+    .crumbs:after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        border-radius: inherit;
+    }
+    
+    .crumbs:before {
+        height: 70%;
+        width: 70%;
+    }
+    /* ---------------------------------- */
+    
+    .chocolate-button:focus,
+    .chocolate-button:active {
+        outline: none;
+        animation: chomp .3s cubic-bezier(.72, .12, .32, .96);
+        @keyframes chomp {
+            30% {
+                transform: translateZ(-6vmin) rotateX(15deg) rotateZ(12deg);
+            }
+            70% {
+                transform: translateZ(-10vmin) rotateX(0deg) rotateZ(8deg);
+            }
+        }
+    }
+    
+    .text,
+    .bar:before,
+    .bar:after {
+        transition: none;
+        clip-path: polygon( 100% 0, 100% 100%, calc(30% + var(--x, 0) * 1px) 100%, calc(24% + var(--x, 0) * 1px) 75%, calc(7% + var(--x, 0) * 1px) 58%, calc(0% + var(--x, 0) * 1px) 65%, calc(-6% + var(--x, 0) * 1px) 45%, calc(-20% + var(--x, 0) * 1px) 51%, calc(-30% + var(--x, 0) * 1px) 100%, 0 100%, 0 0);
+    }
+    
+    .crumbs {
+        opacity: 1;
+        animation: crumbs 1.5s ease-out both;
+        @keyframes crumbs {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+    }
+    
+    .crumbs:before {
+        animation: inherit;
+        animation-name: crumbs-left;
+        animation-duration: 1.2s;
+        @keyframes crumbs-left {
+            to {
+                transform: translateX(-15vw) rotate(-5deg);
+            }
+        }
+    }
+    
+    .crumbs:after {
+        animation: inherit;
+        animation-name: crumbs-right;
+        @keyframes crumbs-right {
+            to {
+                transform: translateX(15vw) rotate(5deg);
+            }
+        }
+    }
+</style>
+
+<body>
+    <button class="chocolate-button">
+        <div class="crumbs"></div>
+        <span class="bar">
+          <span class="text">Love Myt</span>
+        </span>
+      </button>
+
+    <div class="instructions">Click that Chocolate!</div>
+
+    <script>
+        console.clear();
+
+        const elButton = document.querySelector('.chocolate-button');
+
+        elButton.addEventListener('mousedown', (event) => {
+            if (!elButton.matches(':focus')) {
+                elButton.style.setProperty('--x', event.offsetX);
+                elButton.style.setProperty('--y', event.offsetY);
+            }
+        });
+    </script>
+</body>
+
+</html>
